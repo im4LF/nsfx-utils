@@ -1,0 +1,19 @@
+{
+  "name": "@flox/utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/im4LF/flox-utils.git"
+  },
+  "author": "im4LF <him4LF@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/im4LF/flox-utils/issues"
+  },
+  "homepage": "https://github.com/im4LF/flox-utils#readme"
+}
