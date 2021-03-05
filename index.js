@@ -80,6 +80,8 @@ function get_component(nodepath, args, env) {
     if (nodepath.startsWith('./'))
         nodepath = path.resolve(env.nodesdir, nodepath)
 
+    env.logger.debug(nodepath, 'get_component')
+
     let node = require(nodepath + '.node.js')
     if (typeof node === 'function') 
         return node(args, env)
@@ -92,7 +94,11 @@ function create_process(name, component, args, env, done) {
     let config = {}
     let base = component.base || []
     base.forEach(x => {
-        config = deepmerge(config, x)
+        let buf = x
+        if (typeof x === 'string') 
+            buf = get_component(x, args, env)
+        
+        config = deepmerge(config, buf)
     })
     config = deepmerge(config, component)
 
@@ -142,7 +148,7 @@ function create_process(name, component, args, env, done) {
         })
     })
 
-    env.logger.debug({ name, config, res }, 'create_process')
+    env.logger.debug({ process: res.name, config, res }, 'create_process')
 
     res.init(done)
 }

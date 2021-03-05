@@ -1,4 +1,4 @@
-
+# Flows simple library
 
 ## Concept
 
@@ -15,10 +15,10 @@
 ```bash
 # main loop
 # each process is defined as name_of_process(path/to/Node)
-ticks(@flox/time/Ticks) -> locker(@flox/etc/Locks) -> tasks(@flox/pg/ArrayQuery) -> dispatch(./Dummy)
+ticks(@xfx/time/Ticks) -> locker(@xfx/etc/Locks) -> tasks(@xfx/pg/ArrayQuery) -> dispatch(./Dummy)
 
 # when task is started notify wait process about it
-dispatch START -> wait(@flox/etc/Wait)
+dispatch START -> wait(@xfx/etc/Wait)
 
 # when task is done notify wait process about it
 dispatch DONE -> DONE wait
@@ -33,7 +33,7 @@ tasks DONE -> UNLOCK locker
 Each process can be initialized with args in flow definition, for example:
 
 ```bash
-ticks(@flox/time/Ticks, {"interval": 3000}) -> tasks(@flox/pg/ArrayQuery, {"sql":"select * from some.table where p = $1", "values":[ 123 ]})
+ticks(@xfx/time/Ticks, {"interval": 3000}) -> tasks(@xfx/pg/ArrayQuery, {"sql":"select * from some.table where p = $1", "values":[ 123 ]})
 ```
 
 Or args can be defined outside 
@@ -223,4 +223,15 @@ const Locks = env => ({
         done()
     }
 })
+```
+
+## Gramma
+
+```bash
+# comment
+process_name1(path/to/Node) OUT_PORT_NAME -> IN_PORT_NAME process_name2(path/to/Node, { "a": 1, "b": 2 })
+
+process_name3(path/to/Node)
+
+process_name2 -> process_name3
 ```
