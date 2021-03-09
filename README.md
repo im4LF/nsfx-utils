@@ -204,7 +204,7 @@ Define node as a function with some useful input arguments, for example:
 - `env` - environment of flow, can contain `logger`
 
 ```js
-const Locks = env => ({
+const Locks = (args, env) => ({
     _in(message, done) {
         if (this.locked) {
             env.logger.info({ locked: this.locked }, this.name + '_in')
@@ -223,6 +223,19 @@ const Locks = env => ({
         done()
     }
 })
+
+const Parallel = (args, env) => {
+
+    let res = {
+        _in(message, done) {
+            // do parallel on N outs 
+        }
+    }
+
+    for (let i = 0; i < args.parallel; i++) res[ 'out' + i + '_' ] = 1
+
+    return res
+}
 ```
 
 ## Gramma
