@@ -15,10 +15,10 @@
 ```bash
 # main loop
 # each process is defined as name_of_process(path/to/Node)
-ticks(@xfx/time/Ticks) -> locker(@xfx/etc/Locks) -> tasks(@xfx/pg/ArrayQuery) -> dispatch(./Dummy)
+ticks(@nsfx/time/Ticks) -> locker(@nsfx/etc/Locks) -> tasks(@nsfx/pg/ArrayQuery) -> dispatch(./Dummy)
 
 # when task is started notify wait process about it
-dispatch START -> wait(@xfx/etc/Wait)
+dispatch START -> wait(@nsfx/etc/Wait)
 
 # when task is done notify wait process about it
 dispatch DONE -> DONE wait
@@ -33,7 +33,7 @@ tasks DONE -> UNLOCK locker
 Each process can be initialized with args in flow definition, for example:
 
 ```bash
-ticks(@xfx/time/Ticks, {"interval": 3000}) -> tasks(@xfx/pg/ArrayQuery, {"sql":"select * from some.table where p = $1", "values":[ 123 ]})
+ticks(@nsfx/time/Ticks, {"interval": 3000}) -> tasks(@nsfx/pg/ArrayQuery, {"sql":"select * from some.table where p = $1", "values":[ 123 ]})
 ```
 
 Or args can be defined outside 
