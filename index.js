@@ -10,7 +10,7 @@ function build(def, props, env, done) {
 
     env = Object.assign({ logger }, env)
     let def_parsed = parser.parse(def)
-    env.logger.debug({ def_parsed, dir: process.env })
+    env.logger.debug({ def_parsed, nodesdir: env.nodesdir })
 
     let processes = {}
     let components = {}
