@@ -1,10 +1,10 @@
 {
   "name": "@nsfx/utils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gramma:build": "./node_modules/pegjs/bin/pegjs --format=commonjs -o ./parser.js ./gramma.pegjs"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
     "deepmerge": "^4.2.2",
     "pino": "^6.11.1",
     "pino-pretty": "^4.6.0"
+  },
+  "devDependencies": {
+    "pegjs": "^0.10.0"
   }
 }
