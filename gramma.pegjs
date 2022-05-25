@@ -218,12 +218,12 @@ start
   = (line)*  { return parser.getResult();  }
 
 line
-  = _ "INPORT=" node:node "." port:portName ":" pub:portName _ LineTerminator? {return parser.registerInports(node,port,pub)}
-  / _ "OUTPORT=" node:node "." port:portName ":" pub:portName _ LineTerminator? {return parser.registerOutports(node,port,pub)}
-  / _ "DEFAULT_INPORT=" name:portName _ LineTerminator? { defaultInPort = name}
-  / _ "DEFAULT_OUTPORT=" name:portName _ LineTerminator? { defaultOutPort = name}
-  / annotation:annotation newline { return parser.registerAnnotation(annotation[0], annotation[1]); }
-  / comment newline?
+//  = _ "INPORT=" node:node "." port:portName ":" pub:portName _ LineTerminator? {return parser.registerInports(node,port,pub)}
+//  / _ "OUTPORT=" node:node "." port:portName ":" pub:portName _ LineTerminator? {return parser.registerOutports(node,port,pub)}
+//  / _ "DEFAULT_INPORT=" name:portName _ LineTerminator? { defaultInPort = name}
+//  / _ "DEFAULT_OUTPORT=" name:portName _ LineTerminator? { defaultOutPort = name}
+//  / annotation:annotation newline { return parser.registerAnnotation(annotation[0], annotation[1]); }
+  = comment newline?
   / _ newline
   / _ edges:connection _ LineTerminator? {return parser.registerEdges(edges);}
 
@@ -250,8 +250,9 @@ destination
   / bridge
 
 bridge
-  = x:port__ proc:node y:__port  { return [{"tgt":makeInPort(proc, x)},{"src":makeOutPort(proc, y)}]; }
-  / x:(port__)? proc:nodeWithComponent y:(__port)?  { return [{"tgt":makeInPort(proc, x)},{"src":makeOutPort(proc, y)}]; }
+//  = x:port__ proc:node y:__port  { return [{"tgt":makeInPort(proc, x)},{"src":makeOutPort(proc, y)}]; }
+//  / x:(port__)? proc:nodeWithComponent y:(__port)?  { return [{"tgt":makeInPort(proc, x)},{"src":makeOutPort(proc, y)}]; }
+  = x:(port__)? proc:node y:(__port)?  { return [{"tgt":makeInPort(proc, x)},{"src":makeOutPort(proc, y)}]; }
 
 outport
   = proc:node port:(__port)? { return {"src":makeOutPort(proc, port)} }
@@ -300,7 +301,7 @@ __port
   = __ port:port { return port; }
 
 portName
-  = portname:([a-zA-Z_][a-zA-Z.0-9_]*) {return makeName(portname)}
+  = portname:([A-Z][A-Z.0-9_]*) {return makeName(portname)}
 
 portIndex
   = "[" portindex:[0-9]+ "]" {return parseInt(portindex.join(''))}

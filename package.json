@@ -1,10 +1,10 @@
 {
   "name": "@nsfx/utils",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "gramma:build": "./node_modules/pegjs/bin/pegjs --format=commonjs -o ./parser.js ./gramma.pegjs"
+    "gramma:build": "node ./node_modules/pegjs/bin/pegjs --format=commonjs -o ./parser.js ./gramma.pegjs"
   },
   "repository": {
     "type": "git",
