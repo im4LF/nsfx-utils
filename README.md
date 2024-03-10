@@ -248,3 +248,40 @@ process_name3(path/to/Node)
 
 process_name2 -> process_name3
 ```
+
+## Examples
+
+### Express
+> flows as route handler
+
+[./examples/express.js](./examples/express.js)
+
+Run
+```bash
+node examples/express.js
+```
+
+Check `/ping` endpoint
+
+```bash
+curl http://localhost:8000/ping
+```
+
+Output
+```json
+// output
+{"code":"GT_MAX_LIMIT","limit":0.5,"value":0.8722998785646634}
+// or
+{"value":0.17408471103070844}
+```
+
+Check `/hello` endpoint
+
+```bash
+curl http://localhost:8000/hello
+```
+
+Output
+```json
+{"rnd":0.959420911339675,"msg":"hello"}
+```
