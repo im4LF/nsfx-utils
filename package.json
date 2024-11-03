@@ -1,10 +1,17 @@
 {
   "name": "@nsfx/utils",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "",
-  "main": "index.js",
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "import": "./esm/index.mjs"
+    }
+  },
   "scripts": {
-    "gramma:build": "node ./node_modules/pegjs/bin/pegjs --format=commonjs -o ./parser.js ./gramma.pegjs"
+    "gramma:build:old": "node ./node_modules/pegjs/bin/pegjs --format=commonjs -o ./parser.js ./gramma.pegjs",
+    "gramma:build:es": "peggy --format es -o ./esm/parser.js ./gramma.pegjs",
+    "gramma:build:commonjs": "peggy --format commonjs -o ./parser.js ./gramma.pegjs"
   },
   "repository": {
     "type": "git",
@@ -18,12 +25,13 @@
   "homepage": "https://github.com/im4LF/flox-utils#readme",
   "dependencies": {
     "deepmerge": "^4.2.2",
-    "pino": "^6.11.1"
+    "pino": "^9.5.0",
+    "pino-pretty": "^11.3.0"
   },
   "devDependencies": {
     "express": "^4.18.3",
+    "peggy": "^4.1.1",
     "pegjs": "^0.10.0",
-    "pino-pretty": "^10.3.1",
     "yargs": "^17.7.2"
   }
 }

@@ -3,13 +3,19 @@
 const deepmerge = require('deepmerge')
 const path = require('path')
 const stream = require('stream')
-const logger = require('pino')({ prettyPrint: true })
-const parser = require('./parser')
+const pino = require('pino')
+const { parse } = require('./parser')
+
+const logger = pino({
+	transport: {
+		target: 'pino-pretty',
+	},
+})
 
 function build(def, props, env, done) {
 
     env = Object.assign({ logger }, env)
-    let def_parsed = parser.parse(def)
+    let def_parsed = parse(def)
     env.logger.debug({ def_parsed, nodesdir: env.nodesdir })
 
     let processes = {}
@@ -155,5 +161,6 @@ function create_process(name, component, args, env, done) {
 
 module.exports = {
     build,
-    create_process
+    create_process,
+    parse,
 }
