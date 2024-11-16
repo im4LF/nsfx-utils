@@ -38,25 +38,28 @@ async function build(def, props, env) {
 
 		if (!out_port) {
 			errors.push({ code: 'PORT_NOT_DEFINED', message: `Node ${item.src.process} port ${item.src.port}`, item })
-			return
+			continue
 		}
 		if (!in_port) {
 			errors.push({ code: 'PORT_NOT_DEFINED', message: `Node ${item.tgt.process} port ${item.tgt.port}`, item })
-			return
+			continue
 		}
 
 		let key = [ item.src.process, item.src.port, item.tgt.port, item.tgt.process ].join('--')
 		if (key in uniq) {
 			logger.warn({ item }, 'Already connected')
-			return
+			continue
 		}
 
 		out_port.pipe(in_port)
 		uniq[key] = 1
 	}
 
-	if (errors.length) 
-		throw new Error(errors)
+	if (errors.length) {
+		const err = new Error('NSFX_BUILD_FAILED')
+		err.cause = errors
+		throw err
+	}
 	
 	return processes
 }
