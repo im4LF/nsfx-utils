@@ -8,7 +8,7 @@
 
   var defaultInPort = "IN", defaultOutPort = "OUT";
 
-  parser = this;
+  parser = this || {};
   delete parser.properties;
   delete parser.inports;
   delete parser.outports;
